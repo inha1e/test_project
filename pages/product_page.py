@@ -11,16 +11,24 @@ class ProductPage(BasePage):
         add_button.click()
 
     def product_name(self):
-        product_name = self.browser.find_element(*ProductPageLocators.PRODUCT).text
-        return product_name
+        return self.browser.find_element(*ProductPageLocators.PRODUCT).text
 
     def product_price(self):
-        product_price = self.browser.find_element(*ProductPageLocators.PRICE).text
-        return product_price
+        return self.browser.find_element(*ProductPageLocators.PRICE).text
 
     def product_in_basket(self):
-        product_in_basket = self.browser.find_element(*ProductPageLocators.PRODUCT_IN_BASKET).text
-        return product_in_basket
+        return self.browser.find_element(*ProductPageLocators.SUCCESS_MESSAGE).text
     
     def is_correct_product_in_basket(self):
         assert self.product_name() == self.product_in_basket(), "Product in basket isn't equal product on page!!"
+
+    def should_not_be_success_message(self):
+        assert self.is_not_element_present(*ProductPageLocators.SUCCESS_MESSAGE), \
+       "Success message is presented, but should not be"
+
+    def should_disappeared_success_message(self):
+        assert self.is_disappeared(*ProductPageLocators.SUCCESS_MESSAGE), \
+       "Success message wasn't disappeared"
+       
+
+    
