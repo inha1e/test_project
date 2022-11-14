@@ -16,7 +16,11 @@ def browser(request):
         options = Options()
         options.add_experimental_option('prefs', {'intl.accept_languages': language})
     #    options.headless = True
-        browser = webdriver.Chrome(options=options)
+    #    browser = webdriver.Chrome(options=options)
+        browser = webdriver.Remote(
+    command_executor='http://85.193.92.39:4444/wd/hub',
+    desired_capabilities=capabilities
+)
         browser.implicitly_wait(5)
     else:
         raise pytest.UsageError("Please use --language (example: --language=fr)")
